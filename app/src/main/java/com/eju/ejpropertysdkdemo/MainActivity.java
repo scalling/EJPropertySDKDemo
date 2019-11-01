@@ -88,6 +88,7 @@ public class MainActivity extends BaseActivity {
         List<MainBean> datas = new ArrayList<>();
         datas.add(new MainBean("工单管理", RouterHub.WORK_ORDER_MAIN));
         datas.add(new MainBean("投诉表扬", RouterHub.COMPLAINT_PRAISE_MAIN));
+        datas.add(new MainBean("巡检管理", RouterHub.INSPECTION_MAIN));
         datas.add(new MainBean("重新登录", ""));
         return datas;
     }
