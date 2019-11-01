@@ -119,6 +119,14 @@ public class BaseApplication extends Application implements App {
                 android:resource="@xml/file_paths" />
         </provider>
 ```
+##### [【file_paths.xml】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/res/xml/file_paths.xml)
+```
+    <paths>
+        <external-path
+            name="my_images"
+            path="Pictures"/>
+    </paths>
+```
 ### 七、如果使用到了混淆请加入以下内容(如有问题麻烦联系我)
 ```
   -dontwarn com.eju.housekeeper.**
