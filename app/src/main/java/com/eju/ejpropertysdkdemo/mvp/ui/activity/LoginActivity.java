@@ -64,8 +64,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         loadingDialog = new LoadingDialog(this);
         ViewUtils.setSolidColor(this, true, btnLogin,btnTest);
         etCommunityId.setText("65a3a176b6ab8c3d57cce31038e78ba2");
-        etPwd.setText("Test1234");
-        etAccount.setText("18814188118");
     }
 
     @Override

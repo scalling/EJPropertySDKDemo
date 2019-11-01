@@ -63,8 +63,6 @@ public class LoginTestActivity extends BaseActivity<LoginPresenter> implements L
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         setTitle("测试登录");
-        etAccount.setText("13693198391");
-        etPwd.setText("11111111");
         loadingDialog = new LoadingDialog(this);
         ViewUtils.setSolidColor(this, true, btnLogin);
         ViewUtils.setViewsGone(viewCommunity, btnTest);
