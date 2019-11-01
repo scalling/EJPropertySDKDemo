@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity {
             }
 
         });
-        rvList.setAdapter(new MainAdapter(getData()));
+        rvList.setAdapter(adapter);
     }
 
     private List<MainBean> getData() {
