@@ -34,7 +34,6 @@ public class BaseApplication extends Application implements App {
     @Override
     public void onCreate() {
         super.onCreate();
-        // ThirdPartyManager.openTestHttp();
         ThirdPartyManager.openLog();//打开日志 正式环境下可以不打开
         if (mAppDelegate != null)
             this.mAppDelegate.onCreate();
@@ -46,7 +45,7 @@ public class BaseApplication extends Application implements App {
 
 
     private void initThirdPartyManager() {
-        //进行初始化
+        //工具进行初始化
         ThirdPartyManager.init(this, "10000000")
                 .setThemeColor("#009d8d")//主题颜色
                 .setTimeOutInterface(() -> {
