@@ -1,12 +1,27 @@
 package com.eju.ejpropertysdkdemo;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
-import com.eju.housekeeper.commonres.widget.CleanEditText;
+import com.eju.ejpropertysdkdemo.mvp.model.bean.MainBean;
+import com.eju.ejpropertysdkdemo.mvp.ui.activity.LoginActivity;
+import com.eju.ejpropertysdkdemo.mvp.ui.adapter.MainAdapter;
+import com.eju.housekeeper.commonsdk.core.RouterHub;
 import com.eju.housekeeper.sdk.ThirdPartyManager;
+import com.jess.arms.base.BaseActivity;
+import com.jess.arms.base.DefaultAdapter;
+import com.jess.arms.di.component.AppComponent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 
 
 /**
@@ -14,55 +29,68 @@ import com.eju.housekeeper.sdk.ThirdPartyManager;
  * @date : 2019/10/17
  * @description :测试activity
  */
-public class MainActivity extends AppCompatActivity {
-    CleanEditText etToken;
-    CleanEditText etMemberId;
-    CleanEditText etCommunityId;
-    CleanEditText etTestToken;
+public class MainActivity extends BaseActivity {
+
+
+    @BindView(R.id.rv_list)
+    RecyclerView rvList;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        etToken = (CleanEditText) findViewById(R.id.et_token);
-        etMemberId = (CleanEditText) findViewById(R.id.et_member_id);
-        etCommunityId = (CleanEditText) findViewById(R.id.et_community_id);
-        etTestToken = (CleanEditText) findViewById(R.id.et_test_token);
-        etTestToken.setText("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxN3NoaWh1aS5jb20iLCJzdWIiOiJBVVRIRU5USUNBVElPTl9KV1QiLCJpc3MiOiJBVVRIX1NFUlZFUiIsImlhdCI6MTU3MTY0Mzg4NiwiZXhwIjoxNTc0MzIyMjg2LCJqdGkiOiJiZWYzYjZjYS1iNGFiLTRlOGMtYWJjNC05OWZkOTAwYjFhYjAiLCJ1aWQiOjQ1MDV9.mPFonW5GQy54THbViOVSF1oMwlSlLuDO-hAg9w2P8Sw");
-        etCommunityId.setText("65a3a176b6ab8c3d57cce31038e78ba2");
-        etMemberId.setText("12000ebb1b697400");
-        etToken.setText("MjFBNzBDRjg0MDg5MzhDNDRGRTgzNUM1RENBRkE2NEM2NzI3NzY2OUFEMjFFRUE0Q0QxMDdEQTQ5NUE1RTlCRg==");
-        findViewById(R.id.btn_start).setOnClickListener(onClickListener);
-        findViewById(R.id.btn_test_token).setOnClickListener(onClickListener);
+    public void setupActivityComponent(@NonNull AppComponent appComponent) {
+
     }
 
-    private View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_test_token:
-                    onTestStart();
-                    break;
-                case R.id.btn_start:
-                    navigation();
-                    break;
-            }
+    @Override
+    public int initView(@Nullable Bundle savedInstanceState) {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public void initData(@Nullable Bundle savedInstanceState) {
+        setTitle("跳转");
+        findViewById(R.id.toolbar_back).setVisibility(View.GONE);
+
+        Intent intent = getIntent();
+        String testToken = intent.getStringExtra("test_token");
+        if (!TextUtils.isEmpty(testToken)) {
+            ThirdPartyManager.getInstance().test(testToken);
+        } else {
+            String accessToken = intent.getStringExtra("access_token");
+            String communityId = intent.getStringExtra("community_id");
+            String memberId = intent.getStringExtra("member_id");
+            ThirdPartyManager.getInstance()
+                    //第三方accessToken
+                    .setAccessToken(accessToken)
+                    .setCommunityId(communityId)//第三方小区id
+                    .setMemberId(memberId);
         }
-    };
 
-    private void onTestStart() {
-        ThirdPartyManager.getInstance()
-                //进行测试的token 无需进行测试请不用调用次方法
-                .test(etTestToken.getText().toString())
-                .navigation();//跳转
+        initAdapter();
     }
 
-    private void navigation() {
-        ThirdPartyManager.getInstance()
-                //第三方accessToken
-                .setAccessToken(etToken.getText().toString())
-                .setCommunityId(etCommunityId.getText().toString())//第三方小区id
-                .setMemberId(etMemberId.getText().toString())//第三方memberId
-                .navigation();//跳转
+    private void initAdapter() {
+        rvList.setLayoutManager(new LinearLayoutManager(this));
+        MainAdapter adapter = new MainAdapter(getData());
+        adapter.setOnItemClickListener((DefaultAdapter.OnRecyclerViewItemClickListener<MainBean>) (view, viewType, data, position) -> {
+            if (TextUtils.isEmpty(data.ruterHub)) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                ThirdPartyManager.getInstance().navigation(data.ruterHub);//跳转
+            }
+
+        });
+        rvList.setAdapter(new MainAdapter(getData()));
     }
+
+    private List<MainBean> getData() {
+        List<MainBean> datas = new ArrayList<>();
+        datas.add(new MainBean("工单管理", RouterHub.WORK_ORDER_MAIN));
+        datas.add(new MainBean("投诉表扬", RouterHub.COMPLAINT_PRAISE_MAIN));
+        datas.add(new MainBean("重新登录", ""));
+        return datas;
+    }
+
+
 }

@@ -2,12 +2,17 @@ package com.eju.ejpropertysdkdemo;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
+import com.eju.ejpropertysdkdemo.mvp.ui.activity.LoginTimeOutActivity;
 import com.eju.housekeeper.sdk.SdkAppDelegate;
 import com.eju.housekeeper.sdk.ThirdPartyManager;
 import com.jess.arms.base.App;
 import com.jess.arms.di.component.AppComponent;
+
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
+import timber.log.Timber;
 
 /**
  * @author : zengmei
@@ -29,15 +34,31 @@ public class BaseApplication extends Application implements App {
     @Override
     public void onCreate() {
         super.onCreate();
+        // ThirdPartyManager.openTestHttp();
         ThirdPartyManager.openLog();//打开日志 正式环境下可以不打开
         if (mAppDelegate != null)
             this.mAppDelegate.onCreate();
+        initThirdPartyManager();
+
+
+        RetrofitUrlManager.getInstance().putDomain("test", "http://39.98.98.227");
+    }
+
+
+    private void initThirdPartyManager() {
         //进行初始化
         ThirdPartyManager.init(this, "10000000")
                 .setThemeColor("#009d8d")//主题颜色
                 .setTimeOutInterface(() -> {
-                    //登录超时
+                    Timber.e("APP登录过期相关操作");
+                    timeOut();
                 });
+    }
+
+    private void timeOut() {
+        Intent intent = new Intent(this, LoginTimeOutActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     /**

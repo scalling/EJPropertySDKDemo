@@ -12,7 +12,7 @@ allprojects {
 ### 二、 app工程 build.gradle配置
 ```
 dependencies {
-   implementation 'com.eju:housekeeper-sdk:1.0.2'
+   implementation 'com.eju:housekeeper-sdk:1.1.0'
 }
 ```
 ### 四、需继承extends Application implements App[【示例BaseApplication.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/BaseApplication.java)在里面进行初始化工作（直接复制就可）
@@ -67,7 +67,7 @@ public class BaseApplication extends Application implements App {
  ThirdPartyManager.getInstance().setTimeOutInterface(new TimeOutInterface() {
             @Override
             public void timeOut() {
-                //登录超时
+                //登录超时 登录过期 
             }
         });
 ```
@@ -76,8 +76,9 @@ public class BaseApplication extends Application implements App {
 ##### 6、ThirdPartyManager.getInstance().setAccessToken();//设置第三方token 
   如需要测试则调用:
       ThirdPartyManager.getInstance().test("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxN3NoaWh1aS5jb20iLCJzdWIiOiJBVVRIRU5USUNBVElPTl9KV1QiLCJpc3MiOiJBVVRIX1NFUlZFUiIsImlhdCI6MTU3MTY0Mzg4NiwiZXhwIjoxNTc0MzIyMjg2LCJqdGkiOiJiZWYzYjZjYS1iNGFiLTRlOGMtYWJjNC05OWZkOTAwYjFhYjAiLCJ1aWQiOjQ1MDV9.mPFonW5GQy54THbViOVSF1oMwlSlLuDO-hAg9w2P8Sw");
-##### 7、ThirdPartyManager.getInstance().navigation();//跳转
-#### 8、ThirdPartyManager.openLog();//打开日志 方便调试数据
+##### 7、ThirdPartyManager.openLog();//打开日志 方便调试数据
+##### 8、ThirdPartyManager.getInstance().navigation();或者ThirdPartyManager.getInstance().navigation(WORK_ORDER_MAIN);//跳转工单管理
+##### 9、ThirdPartyManager.getInstance().navigation(RouterHub.COMPLAINT_PRAISE_MAIN);//跳转投诉表扬
 示例[【MainActivity.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/MainActivity.java)
 
 
