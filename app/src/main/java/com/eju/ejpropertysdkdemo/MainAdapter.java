@@ -1,10 +1,9 @@
-package com.eju.ejpropertysdkdemo.mvp.ui.adapter;
+package com.eju.ejpropertysdkdemo;
 
 import android.view.View;
-import android.widget.TextView;
 
 import com.eju.ejpropertysdkdemo.R;
-import com.eju.ejpropertysdkdemo.mvp.model.bean.MainBean;
+import com.eju.ejpropertysdkdemo.MainBean;
 import com.eju.housekeeper.commonres.utils.ViewUtils;
 import com.jess.arms.base.BaseHolder;
 import com.jess.arms.base.DefaultAdapter;

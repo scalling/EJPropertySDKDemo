@@ -1,4 +1,4 @@
-package com.eju.ejpropertysdkdemo.mvp.model.bean;
+package com.eju.ejpropertysdkdemo;
 
 public class MainBean {
     public String name;

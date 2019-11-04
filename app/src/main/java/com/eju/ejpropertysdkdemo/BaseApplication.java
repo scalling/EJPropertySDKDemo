@@ -2,10 +2,8 @@ package com.eju.ejpropertysdkdemo;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.eju.ejpropertysdkdemo.mvp.ui.activity.LoginTimeOutActivity;
 import com.eju.housekeeper.sdk.SdkAppDelegate;
 import com.eju.housekeeper.sdk.ThirdPartyManager;
 import com.jess.arms.base.App;
@@ -50,15 +48,10 @@ public class BaseApplication extends Application implements App {
                 .setThemeColor("#009d8d")//主题颜色
                 .setTimeOutInterface(() -> {
                     Timber.e("APP登录过期相关操作");
-                    timeOut();
+
                 });
     }
 
-    private void timeOut() {
-        Intent intent = new Intent(this, LoginTimeOutActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 
     /**
      * 在模拟环境中程序终止时会被调用
