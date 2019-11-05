@@ -2,9 +2,7 @@ package com.eju.ejpropertysdkdemo;
 
 import android.view.View;
 
-import com.eju.ejpropertysdkdemo.R;
-import com.eju.ejpropertysdkdemo.MainBean;
-import com.eju.housekeeper.commonres.utils.ViewUtils;
+import com.eju.housekeeper.app.utils.ViewUtils;
 import com.jess.arms.base.BaseHolder;
 import com.jess.arms.base.DefaultAdapter;
 import com.zm.rb.view.RoundButton;
