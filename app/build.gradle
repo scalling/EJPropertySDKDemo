@@ -29,7 +29,7 @@ android {
 dependencies {
     //需要引入的包
     implementation files('libs/AMap3DMap_7.0.0_AMapLocation_4.7.0_20190924.jar')
-    implementation 'com.eju:housekeeper-sdk:0.2.7'
+    implementation 'com.eju:housekeeper-sdk:1.1.0'
 
     //不需要引入
     implementation 'com.android.support:appcompat-v7:28.0.0'
