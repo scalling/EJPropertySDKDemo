@@ -1,4 +1,4 @@
-# EJPropertySDKDemo】
+# EJPropertySDKDemo
 ### V1.1.0 版本更新说明
    - 新增: 投诉表扬模块(ThirdPartyManager.getInstance().navigation(Navigation.COMPLAINT_PRAISE_MAIN));
 ### V1.2.0 版本更新说明
@@ -72,7 +72,7 @@ public class BaseApplication extends Application implements App {
      //方便调试数据  正式环境下可以不打开如需使用必须在SdkAppDelegate onCreate之前调用
      ThirdPartyManager.openLog(); 
 ```
-##### 3、初始化工具(建议在Application进行初始化)
+##### 3、初始化工具(建议在【Application】进行初始化)
 ```
     //初始化和设置颜色值越早越好
     ThirdPartyManager.init(this, "10000000")//第二位参数写死"10000000"就行
