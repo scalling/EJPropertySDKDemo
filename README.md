@@ -3,7 +3,8 @@
    - 新增: 投诉表扬模块( ThirdPartyManager.getInstance().navigation(Navigation.COMPLAINT_PRAISE_MAIN);
    
    
-## EJPropertySDKDemo 库使用示例：（SDK接入(minSdkVersion    : 21)）
+#### EJPropertySDKDemo 库使用示例：（SDK接入(minSdkVersion    : 21)）
+
 #### 一、 添加Jcenter仓库 Gradle依赖
 ```
 dependencies {
@@ -12,7 +13,7 @@ dependencies {
 ```
 #### 二、在项目中添加如下代码
 
-##### 1、需继承extends Application implements App[【示例BaseApplication.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/BaseApplication.java)在里面进行初始化工作（直接复制就可），[AndroidManifest.xml](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/MainActivity.java) application name需要继承自定义的[BaseApplication](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/BaseApplication.java)
+##### 1、需继承extends Application implements App[【示例BaseApplication.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/BaseApplication.java)在里面进行初始化工作(直接复制就可),[AndroidManifest.xml](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/MainActivity.java) application name需要继承自定义的[BaseApplication](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/BaseApplication.java)
 ```
 public class BaseApplication extends Application implements App {
     private SdkAppDelegate mAppDelegate;
@@ -68,9 +69,8 @@ public class BaseApplication extends Application implements App {
      //方便调试数据  正式环境下可以不打开如需使用必须在SdkAppDelegate onCreate之前调用
      ThirdPartyManager.openLog(); 
 ```
-##### 3、初始化工具（建议在Application进行初始化）
+##### 3、初始化工具(建议在Application进行初始化)
 ```
-    
     //初始化和设置颜色值越早越好
     ThirdPartyManager.init(this, "10000000")//第二位参数写死"10000000"就行
                    .setThemeColor("#009d8d")//设置主题颜色
@@ -80,16 +80,19 @@ public class BaseApplication extends Application implements App {
                            //登录超时 登录过期 
                        }
                    })
-
 ```
 ##### 4、设置登录信息
 ```
-        ThirdPartyManager.getInstance().setMemberId();//设置第三方memberId 
-        ThirdPartyManager.getInstance().setCommunityId();//设置第三方小区id
-        ThirdPartyManager.getInstance().setAccessToken();//设置第三方token 
-        
-        如需要测试则调用:
-        ThirdPartyManager.getInstance().test("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxN3NoaWh1aS5jb20iLCJzdWIiOiJBVVRIRU5USUNBVElPTl9KV1QiLCJpc3MiOiJBVVRIX1NFUlZFUiIsImlhdCI6MTU3MTY0Mzg4NiwiZXhwIjoxNTc0MzIyMjg2LCJqdGkiOiJiZWYzYjZjYS1iNGFiLTRlOGMtYWJjNC05OWZkOTAwYjFhYjAiLCJ1aWQiOjQ1MDV9.mPFonW5GQy54THbViOVSF1oMwlSlLuDO-hAg9w2P8Sw");
+        //设置第三方memberId 
+        ThirdPartyManager.getInstance().setMemberId();
+        //设置第三方小区id
+        ThirdPartyManager.getInstance().setCommunityId();
+        //设置第三方token 
+        ThirdPartyManager.getInstance().setAccessToken();
+```
+```
+    //如需要测试则调用:
+      ThirdPartyManager.getInstance().test("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxN3NoaWh1aS5jb20iLCJzdWIiOiJBVVRIRU5USUNBVElPTl9KV1QiLCJpc3MiOiJBVVRIX1NFUlZFUiIsImlhdCI6MTU3MTY0Mzg4NiwiZXhwIjoxNTc0MzIyMjg2LCJqdGkiOiJiZWYzYjZjYS1iNGFiLTRlOGMtYWJjNC05OWZkOTAwYjFhYjAiLCJ1aWQiOjQ1MDV9.mPFonW5GQy54THbViOVSF1oMwlSlLuDO-hAg9w2P8Sw");
 ```
 ##### 5、跳转
 ```
