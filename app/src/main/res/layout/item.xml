@@ -3,11 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center">
 
     <com.zm.rb.view.RoundButton
         android:id="@+id/btn_next"
         style="@style/public_style_btn_solid_r5"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:clickable="false"
+        app:btnSolidColor="@color/colorPrimary"/>
 
 </LinearLayout>

@@ -77,8 +77,9 @@ public class BaseApplication extends Application implements App {
   如需要测试则调用:
       ThirdPartyManager.getInstance().test("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxN3NoaWh1aS5jb20iLCJzdWIiOiJBVVRIRU5USUNBVElPTl9KV1QiLCJpc3MiOiJBVVRIX1NFUlZFUiIsImlhdCI6MTU3MTY0Mzg4NiwiZXhwIjoxNTc0MzIyMjg2LCJqdGkiOiJiZWYzYjZjYS1iNGFiLTRlOGMtYWJjNC05OWZkOTAwYjFhYjAiLCJ1aWQiOjQ1MDV9.mPFonW5GQy54THbViOVSF1oMwlSlLuDO-hAg9w2P8Sw");
 ##### 7、ThirdPartyManager.openLog();//打开日志 方便调试数据
-##### 8、ThirdPartyManager.getInstance().navigation();或者ThirdPartyManager.getInstance().navigation(WORK_ORDER_MAIN);//跳转工单管理
-##### 9、ThirdPartyManager.getInstance().navigation(RouterHub.COMPLAINT_PRAISE_MAIN);//跳转投诉表扬
+##### 8、ThirdPartyManager.getInstance().navigation();或者ThirdPartyManager.getInstance().navigation(Navigation.WORK_ORDER_MAN);//跳转工单管理
+##### 9、ThirdPartyManager.getInstance().navigation(Navigation.COMPLAINT_PRAISE_MAIN);//跳转投诉表扬
+##### 10、ThirdPartyManager.getInstance().navigation(Navigation.INSPECTION_MAN));//跳转巡检管理
 示例[【MainActivity.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/MainActivity.java)
 
 
