@@ -33,7 +33,7 @@ public class BaseApplication extends Application implements App {
     @Override
     public void onCreate() {
         super.onCreate();
-        ThirdPartyManager.openLog();//打开日志 正式环境下可以不打开
+        //ThirdPartyManager.openLog();//打开日志 正式环境下可以不打开
         if (mAppDelegate != null)
             this.mAppDelegate.onCreate();
         initThirdPartyManager();

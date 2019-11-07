@@ -74,8 +74,9 @@ public class LoginActivity extends BaseActivity implements IView {
                 .with(this)
                 .responseErrorListener(new ResponseErrorListenerImpl()).build();
         //测试账号
-        etAccount.setText("13693198391");
-        etPwd.setText("11111111");
+//        etAccount.setText("13693198391");
+//        etPwd.setText("11111111");
+
 
         //第三方测试账号
         //etAccount.setText("18814188118");
