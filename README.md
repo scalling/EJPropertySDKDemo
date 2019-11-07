@@ -1,22 +1,14 @@
 # EJPropertySDKDemo  
 ## SDK接入( minSdkVersion    : 21)
-#### 一、最外层build.gradle配置
-```
-allprojects {
-    repositories {
-        maven { url "https://jitpack.io" }
-        
-    }
-}
-```
-#### 二、 app工程 build.gradle配置
+#### 一、 添加Jcenter仓库 Gradle依赖
 ```
 dependencies {
    implementation 'com.eju:housekeeper-sdk:1.1.0'
 }
 ```
-#### 三、需继承extends Application implements App[【示例BaseApplication.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/BaseApplication.java)在里面进行初始化工作（直接复制就可）
+#### 二、在项目中添加如下代码
 
+##### 1、需继承extends Application implements App[【示例BaseApplication.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/BaseApplication.java)在里面进行初始化工作（直接复制就可）
 ```
 public class BaseApplication extends Application implements App {
     private SdkAppDelegate mAppDelegate;
@@ -59,13 +51,21 @@ public class BaseApplication extends Application implements App {
     }
 }
 ```
-#### 四、方法说明(在项目中添加如下代码)
-##### 1、打开日志
+##### 2、application name需要继承前面自定义的BaseApplication
+```
+ <application
+        android:name=".BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"/>
+```
+##### 3、打开日志
 ```
      //方便调试数据  正式环境下可以不打开如需使用必须在SdkAppDelegate onCreate之前调用
      ThirdPartyManager.openLog(); 
 ```
-##### 2、初始化工具
+##### 4、初始化工具（建议在Application进行初始化）
 ```
     
     //初始化和设置颜色值越早越好
@@ -79,7 +79,7 @@ public class BaseApplication extends Application implements App {
                    })
 
 ```
-##### 3、设置登录信息
+##### 5、设置登录信息
 ```
         ThirdPartyManager.getInstance().setMemberId();//设置第三方memberId 
         ThirdPartyManager.getInstance().setCommunityId();//设置第三方小区id
@@ -88,7 +88,7 @@ public class BaseApplication extends Application implements App {
         如需要测试则调用:
         ThirdPartyManager.getInstance().test("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxN3NoaWh1aS5jb20iLCJzdWIiOiJBVVRIRU5USUNBVElPTl9KV1QiLCJpc3MiOiJBVVRIX1NFUlZFUiIsImlhdCI6MTU3MTY0Mzg4NiwiZXhwIjoxNTc0MzIyMjg2LCJqdGkiOiJiZWYzYjZjYS1iNGFiLTRlOGMtYWJjNC05OWZkOTAwYjFhYjAiLCJ1aWQiOjQ1MDV9.mPFonW5GQy54THbViOVSF1oMwlSlLuDO-hAg9w2P8Sw");
 ```
-##### 4、跳转
+##### 6、跳转
 ```
     //跳转工单管理
     ThirdPartyManager.getInstance().navigation();
@@ -100,7 +100,7 @@ public class BaseApplication extends Application implements App {
 示例[【MainActivity.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/MainActivity.java)
 
 
-#### 五、[【AndroidManifest.xml相关配置】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/AndroidManifest.xml)
+#### 三、[【AndroidManifest.xml相关配置】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/AndroidManifest.xml)
 
 ##### 1、相关权限
 ```
@@ -116,16 +116,7 @@ public class BaseApplication extends Application implements App {
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 ```
-##### 2、application name需要继承前面自定义的BaseApplication
-```
- <application
-        android:name=".BaseApplication"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:networkSecurityConfig="@xml/network_security_config"/>
-```
-##### 3、需提供文件权限
+##### 2、需提供文件权限
 ```
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -137,7 +128,7 @@ public class BaseApplication extends Application implements App {
                 android:resource="@xml/file_paths" />
         </provider>
 ```
-##### [【file_paths.xml】]的配置(https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/res/xml/file_paths.xml)
+##### 3、[【file_paths.xml】]的配置(https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/res/xml/file_paths.xml)
 ```
     <paths>
         <external-path
@@ -145,7 +136,7 @@ public class BaseApplication extends Application implements App {
             path="Pictures"/>
     </paths>
 ```
-#### 六、如果使用到了混淆请加入以下内容(如有问题麻烦联系我)
+#### 四、如果使用到了混淆请加入以下内容(如有问题麻烦联系我)
 ```
   -dontwarn com.eju.housekeeper.**
   -keep public class com.eju.housekeeper.**{*;}
