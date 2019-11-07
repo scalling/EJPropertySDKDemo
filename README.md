@@ -1,5 +1,9 @@
-# EJPropertySDKDemo  
-## SDK接入( minSdkVersion    : 21)
+# EJPropertySDKDemo】
+### V1.1.0 版本更新说名
+   - 新增: 投诉表扬模块( ThirdPartyManager.getInstance().navigation(Navigation.COMPLAINT_PRAISE_MAIN);
+   
+   
+## EJPropertySDKDemo 库使用示例：（SDK接入(minSdkVersion    : 21)）
 #### 一、 添加Jcenter仓库 Gradle依赖
 ```
 dependencies {
@@ -51,7 +55,6 @@ public class BaseApplication extends Application implements App {
     }
 }
 ```
-##### 2、application name需要继承前面自定义的BaseApplication
 ```
  <application
         android:name=".BaseApplication"
@@ -60,12 +63,12 @@ public class BaseApplication extends Application implements App {
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"/>
 ```
-##### 3、打开日志
+##### 2、打开日志
 ```
      //方便调试数据  正式环境下可以不打开如需使用必须在SdkAppDelegate onCreate之前调用
      ThirdPartyManager.openLog(); 
 ```
-##### 4、初始化工具（建议在Application进行初始化）
+##### 3、初始化工具（建议在Application进行初始化）
 ```
     
     //初始化和设置颜色值越早越好
@@ -79,7 +82,7 @@ public class BaseApplication extends Application implements App {
                    })
 
 ```
-##### 5、设置登录信息
+##### 4、设置登录信息
 ```
         ThirdPartyManager.getInstance().setMemberId();//设置第三方memberId 
         ThirdPartyManager.getInstance().setCommunityId();//设置第三方小区id
@@ -88,7 +91,7 @@ public class BaseApplication extends Application implements App {
         如需要测试则调用:
         ThirdPartyManager.getInstance().test("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxN3NoaWh1aS5jb20iLCJzdWIiOiJBVVRIRU5USUNBVElPTl9KV1QiLCJpc3MiOiJBVVRIX1NFUlZFUiIsImlhdCI6MTU3MTY0Mzg4NiwiZXhwIjoxNTc0MzIyMjg2LCJqdGkiOiJiZWYzYjZjYS1iNGFiLTRlOGMtYWJjNC05OWZkOTAwYjFhYjAiLCJ1aWQiOjQ1MDV9.mPFonW5GQy54THbViOVSF1oMwlSlLuDO-hAg9w2P8Sw");
 ```
-##### 6、跳转
+##### 5、跳转
 ```
     //跳转工单管理
     ThirdPartyManager.getInstance().navigation();
@@ -116,7 +119,7 @@ public class BaseApplication extends Application implements App {
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 ```
-##### 2、需提供文件权限
+##### 2、需提供文件权限[【file_paths.xml】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/res/xml/file_paths.xml)的配置
 ```
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -128,7 +131,7 @@ public class BaseApplication extends Application implements App {
                 android:resource="@xml/file_paths" />
         </provider>
 ```
-##### 3、[【file_paths.xml】]的配置(https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/res/xml/file_paths.xml)
+
 ```
     <paths>
         <external-path
