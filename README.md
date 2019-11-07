@@ -15,7 +15,7 @@ dependencies {
    implementation 'com.eju:housekeeper-sdk:1.1.0'
 }
 ```
-### 四、需继承extends Application implements App[【示例BaseApplication.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/BaseApplication.java)在里面进行初始化工作（直接复制就可）
+### 三、需继承extends Application implements App[【示例BaseApplication.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/BaseApplication.java)在里面进行初始化工作（直接复制就可）
 
 ```
 public class BaseApplication extends Application implements App {
@@ -59,30 +59,42 @@ public class BaseApplication extends Application implements App {
     }
 }
 ```
-### 五、方法说明(初始化和设置颜色值越早越好)
-##### 1、ThirdPartyManager.init(context, "10000000");初始化工具 第二位参数写死"10000000"就行
-##### 2、ThirdPartyManager.getInstance().setThemenColor("#009d8d");//设置主题颜色
-##### 3、登录超时监听
+### 四、方法说明(在项目中添加如下代码)
+
 ```
- ThirdPartyManager.getInstance().setTimeOutInterface(new TimeOutInterface() {
-            @Override
-            public void timeOut() {
-                //登录超时 登录过期 
-            }
-        });
+     //打开日志方便调试数据  正式环境下可以不打开如需使用必须在SdkAppDelegate onCreate之前调用
+     ThirdPartyManager.openLog(); 
 ```
-##### 4、ThirdPartyManager.getInstance().setMemberId();//设置第三方memberId 
-##### 5、ThirdPartyManager.getInstance().setCommunityId("");//设置第三方小区id
-##### 6、ThirdPartyManager.getInstance().setAccessToken();//设置第三方token 
-  如需要测试则调用:
-      ThirdPartyManager.getInstance().test("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxN3NoaWh1aS5jb20iLCJzdWIiOiJBVVRIRU5USUNBVElPTl9KV1QiLCJpc3MiOiJBVVRIX1NFUlZFUiIsImlhdCI6MTU3MTY0Mzg4NiwiZXhwIjoxNTc0MzIyMjg2LCJqdGkiOiJiZWYzYjZjYS1iNGFiLTRlOGMtYWJjNC05OWZkOTAwYjFhYjAiLCJ1aWQiOjQ1MDV9.mPFonW5GQy54THbViOVSF1oMwlSlLuDO-hAg9w2P8Sw");
-##### 7、ThirdPartyManager.openLog();//打开日志 方便调试数据
-##### 8、ThirdPartyManager.getInstance().navigation();或者ThirdPartyManager.getInstance().navigation(Navigation.WORK_ORDER_MAN);//跳转工单管理
-##### 9、ThirdPartyManager.getInstance().navigation(Navigation.COMPLAINT_PRAISE_MAIN);//跳转投诉表扬
+```
+    
+    //初始化工具 初始化和设置颜色值越早越好
+    ThirdPartyManager.init(this, "10000000")//第二位参数写死"10000000"就行
+                   .setThemeColor("#009d8d")//设置主题颜色
+                   .setTimeOutInterface(new TimeOutInterface() {
+                       @Override
+                       public void timeOut() {
+                           //登录超时 登录过期 
+                       }
+                   })
+
+```
+```
+        //设置登录信息
+        ThirdPartyManager.getInstance().setMemberId();//设置第三方memberId 
+        ThirdPartyManager.getInstance().setCommunityId("");//设置第三方小区id
+        ThirdPartyManager.getInstance().setAccessToken();//设置第三方token 
+        
+        如需要测试则调用:
+        ThirdPartyManager.getInstance().test("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxN3NoaWh1aS5jb20iLCJzdWIiOiJBVVRIRU5USUNBVElPTl9KV1QiLCJpc3MiOiJBVVRIX1NFUlZFUiIsImlhdCI6MTU3MTY0Mzg4NiwiZXhwIjoxNTc0MzIyMjg2LCJqdGkiOiJiZWYzYjZjYS1iNGFiLTRlOGMtYWJjNC05OWZkOTAwYjFhYjAiLCJ1aWQiOjQ1MDV9.mPFonW5GQy54THbViOVSF1oMwlSlLuDO-hAg9w2P8Sw");
+```
+```
+    ThirdPartyManager.getInstance().navigation();或者ThirdPartyManager.getInstance().navigation(Navigation.WORK_ORDER_MAN);//跳转工单管理
+    ThirdPartyManager.getInstance().navigation(Navigation.COMPLAINT_PRAISE_MAIN);//跳转投诉表扬
+```
 示例[【MainActivity.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/MainActivity.java)
 
 
-### 六、[【AndroidManifest.xml相关配置】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/AndroidManifest.xml)
+### 五、[【AndroidManifest.xml相关配置】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/AndroidManifest.xml)
 
 #### 1、相关权限
 ```
