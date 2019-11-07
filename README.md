@@ -109,7 +109,7 @@ public class BaseApplication extends Application implements App {
     //跳转巡检管理
     ThirdPartyManager.getInstance().navigation(Navigation.INSPECTION_MAN)
 ```
-##### 6、[**高德地图**](https://lbs.amap.com/)接入，添加**lib包**引入[**【高德地图SDK】**](https://github.com/scalling/EJPropertySDKDemo/tree/feature/1.0.2/app/libs),**build.gradle**引入[**【so文件】**](https://github.com/scalling/EJPropertySDKDemo/tree/feature/1.0.2/app/src/main/jniLibs)(一定要引入so文件，否则地图黑屏),在[AndroidManifest.xml](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/AndroidManifest.xml)配置【apikey】
+##### 6、[**高德地图**](https://lbs.amap.com/)接入，添加**lib包**引入[**【高德地图SDK】**](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/libs),**build.gradle**引入[**【so文件】**](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/jniLibs)(一定要引入so文件，否则地图黑屏),在[AndroidManifest.xml](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/AndroidManifest.xml)配置【apikey】
 ```
  implementation files('libs/AMap3DMap_7.0.0_AMapLocation_4.7.0_20190924.jar')
 ```
