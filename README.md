@@ -1,7 +1,7 @@
 # EJPropertySDKDemo】
-### V1.1.0 版本更新说名
+### V1.1.0 版本更新说明
    - 新增: 投诉表扬模块(ThirdPartyManager.getInstance().navigation(Navigation.COMPLAINT_PRAISE_MAIN));
-### V1.1.0 版本更新说名
+### V1.2.0 版本更新说明
    - 新增: 巡检管理模块(ThirdPartyManager.getInstance().navigation(Navigation.INSPECTION_MAN));
    - 新增: 高德地图接入（所需3D地图、定位SDK）,[SDK相关下载](https://lbs.amap.com/api/android-sdk/download)
    - 新增: uses-permission权限配置,具体请查看[【AndroidManifest.xml】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/AndroidManifest.xml)
