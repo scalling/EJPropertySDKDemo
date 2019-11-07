@@ -28,7 +28,7 @@ android {
 
 dependencies {
     //需要引入的包
-    implementation files('libs/AMap3DMap_7.0.0_AMapLocation_4.7.0_20190924.jar')
+    implementation files('libs/AMap3DMap_7.1.0_AMapLocation_4.7.2_20191030.jar')
     implementation 'com.eju:housekeeper-sdk:1.1.0'
 
     //不需要引入
