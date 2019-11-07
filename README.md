@@ -1,9 +1,12 @@
 # EJPropertySDKDemo】
 ### V1.1.0 版本更新说名
    - 新增: 投诉表扬模块(ThirdPartyManager.getInstance().navigation(Navigation.COMPLAINT_PRAISE_MAIN));
+### V1.1.0 版本更新说名
+   - 新增: 巡检管理模块(ThirdPartyManager.getInstance().navigation(Navigation.INSPECTION_MAN));
+   - 新增: 高德地图接入（所需3D地图、定位SDK）,[SDK相关下载](https://lbs.amap.com/api/android-sdk/download)
+   - 新增: uses-permission权限配置,具体请查看[【AndroidManifest.xml】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/AndroidManifest.xml)
    
-   
-#### EJPropertySDKDemo 库使用示例：（SDK接入(minSdkVersion    : 21)）
+#### **EJPropertySDKDemo 库使用示例**：（SDK接入(**minSdkVersion    : 21**)）
 
 #### 一、 添加Jcenter仓库 Gradle依赖
 ```
@@ -102,6 +105,24 @@ public class BaseApplication extends Application implements App {
     
     //跳转投诉表扬
     ThirdPartyManager.getInstance().navigation(Navigation.COMPLAINT_PRAISE_MAIN);
+    
+    //跳转巡检管理
+    ThirdPartyManager.getInstance().navigation(Navigation.INSPECTION_MAN)
+```
+##### 6、[**高德地图**](https://lbs.amap.com/)接入，添加**lib包**引入[**【高德地图SDK】**](https://github.com/scalling/EJPropertySDKDemo/tree/feature/1.0.2/app/libs),**build.gradle**引入[**【so文件】**](https://github.com/scalling/EJPropertySDKDemo/tree/feature/1.0.2/app/src/main/jniLibs)(一定要引入so文件，否则地图黑屏),在[AndroidManifest.xml](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/AndroidManifest.xml)配置【apikey】
+```
+ implementation files('libs/AMap3DMap_7.0.0_AMapLocation_4.7.0_20190924.jar')
+```
+```
+ ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a'
+        }
+```
+```
+ <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="申请的apikey" /> 
 ```
 示例[【MainActivity.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/MainActivity.java)
 
@@ -110,17 +131,19 @@ public class BaseApplication extends Application implements App {
 
 ##### 1、相关权限
 ```
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.INTERNET" /> 
-    <uses-permission android:name="android.permission.RECORD_AUDIO" /> 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> 
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+   <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 地图包、搜索包需要的基础权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 定位包、导航包需要的额外权限（注：基础权限也需要） -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 ```
 ##### 2、需提供文件权限[【file_paths.xml】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/res/xml/file_paths.xml)的配置
 ```
