@@ -149,4 +149,4 @@ public class BaseApplication extends Application implements App {
 ```
 
 
-### 具体相关用法请查看demo
+### 具体相关用法请查看demo[点击下载 EJPropertySDKDemo.apk](https://fir.im/qrle)
