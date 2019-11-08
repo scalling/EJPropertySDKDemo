@@ -33,8 +33,6 @@ import butterknife.OnItemClick;
 public class MainActivity extends BaseActivity {
     @BindView(R.id.list)
     ListView list;
-    private List<Map<String, Object>> datas;
-
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
     }
@@ -52,39 +50,38 @@ public class MainActivity extends BaseActivity {
             //仅测试
             ThirdPartyManager.getInstance().test(testToken);
         } else {
-            //正常调用
             String accessToken = intent.getStringExtra("access_token");
             String communityId = intent.getStringExtra("community_id");
             String memberId = intent.getStringExtra("member_id");
+            //正常调用
             ThirdPartyManager.getInstance()
-                    //第三方accessToken
-                    .setAccessToken(accessToken)
+                    .setAccessToken(accessToken) //第三方accessToken
                     .setCommunityId(communityId)//第三方小区id
-                    .setMemberId(memberId);
+                    .setMemberId(memberId);//第三方memberId
         }
         initAdapter();
     }
 
     private void initAdapter() {
-        datas = new ArrayList<>();
-        datas.add(getItem("工单管理", Navigation.WORK_ORDER_MAN));
-        datas.add(getItem("投诉表扬", Navigation.COMPLAINT_PRAISE_MAIN));
-        datas.add(getItem("巡检管理", Navigation.INSPECTION_MAN));
-        datas.add(getItem("返回", 0));
+        List<Map<String, Object>> datas = new ArrayList<>();
+        datas.add(getItem("跳转工单管理", Navigation.WORK_ORDER_MAN));
+        datas.add(getItem("跳转投诉表扬", Navigation.COMPLAINT_PRAISE_MAIN));
+        datas.add(getItem("跳转巡检管理", Navigation.INSPECTION_MAN));
+        datas.add(getItem("返回登录", 0));
         list.setAdapter(new SimpleAdapter(this, datas, R.layout.item, new String[]{"title"}, new int[]{R.id.btn_next}));
     }
     @OnItemClick(R.id.list)
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        int nav = Integer.parseInt(Objects.requireNonNull(datas.get(position).get("nav")).toString());
-        if (nav > 0) {
+        Map<String, Object> infoMap = (Map<String, Object>) parent.getItemAtPosition(position);
+        int nav = Integer.parseInt(Objects.requireNonNull(infoMap.get("nav")).toString());
+        if (nav >0) {
+            ThirdPartyManager.getInstance().navigation(nav);//跳转
+        } else {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
-        } else {
-            ThirdPartyManager.getInstance().navigation(nav);//跳转
         }
     }
-
     private Map<String, Object> getItem(String title, int nav) {
         Map<String, Object> map = new HashMap<>();
         map.put("title", title);

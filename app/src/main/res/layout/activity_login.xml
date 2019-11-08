@@ -43,17 +43,8 @@
             android:background="@null" />
     </LinearLayout>
 
-
-
-
-    <View style="@style/public_horizontal_line" />
-
-    <com.zm.rb.view.RoundButton
-        android:id="@+id/btn_test"
-        style="@style/public_style_btn_solid_r5"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:text="登录" />
+    <View style="@style/public_horizontal_line"
+        android:layout_marginBottom="30dp"/>
 
     <com.zm.rb.view.RoundButton
         android:id="@+id/btn_login"
@@ -61,4 +52,13 @@
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:text="第三方登录" />
+
+    <com.zm.rb.view.RoundButton
+        android:id="@+id/btn_test"
+        style="@style/public_style_btn_solid_r5"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="测试登录" />
+
+
 </LinearLayout>
