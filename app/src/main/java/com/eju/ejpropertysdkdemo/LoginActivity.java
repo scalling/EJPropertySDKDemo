@@ -127,7 +127,7 @@ public class LoginActivity extends BaseActivity implements IView {
                             return;
                         }
                         AppPreferences.getInstance().setLoginPhone(etAccount.getText().toString());
-                        AppPreferences.getInstance().setLoginPhone(etPwd.getText().toString());
+                        AppPreferences.getInstance().setLoginPassword(etPwd.getText().toString());
                         navMain("", bean.access_token, bean.member_id);
                     }
                 });
@@ -144,7 +144,7 @@ public class LoginActivity extends BaseActivity implements IView {
                     @Override
                     public void onNext(BaseResp<LoginBean> loginBeanBaseResp) {
                         AppPreferences.getInstance().setLoginPhone(etAccount.getText().toString());
-                        AppPreferences.getInstance().setLoginPhone(etPwd.getText().toString());
+                        AppPreferences.getInstance().setLoginPassword(etPwd.getText().toString());
                         navMain(loginBeanBaseResp.data.token, "", "");
                     }
                 });
