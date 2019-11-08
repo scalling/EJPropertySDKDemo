@@ -13,6 +13,7 @@ import com.eju.housekeeper.app.widget.CleanEditText;
 import com.eju.housekeeper.housekeeper.common.ui.dialog.LoadingDialog;
 import com.eju.housekeeper.net.bean.BaseResp;
 import com.eju.housekeeper.net.bean.LoginBean;
+import com.eju.housekeeper.net.local.AppPreferences;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.integration.IRepositoryManager;
@@ -73,11 +74,11 @@ public class LoginActivity extends BaseActivity implements IView {
         rxErrorHandler = RxErrorHandler.builder()
                 .with(this)
                 .responseErrorListener(new ResponseErrorListenerImpl()).build();
+        etAccount.setText(AppPreferences.getInstance().getLoginPhone());
+        etPwd.setText(AppPreferences.getInstance().getLoginPassword());
         //测试账号
 //        etAccount.setText("13693198391");
 //        etPwd.setText("11111111");
-
-
         //第三方测试账号
         //etAccount.setText("18814188118");
         //etPwd.setText("Test1234");
@@ -125,6 +126,8 @@ public class LoginActivity extends BaseActivity implements IView {
                             ArmsUtils.snackbarText("登录失败");
                             return;
                         }
+                        AppPreferences.getInstance().setLoginPhone(etAccount.getText().toString());
+                        AppPreferences.getInstance().setLoginPhone(etPwd.getText().toString());
                         navMain("", bean.access_token, bean.member_id);
                     }
                 });
@@ -140,6 +143,8 @@ public class LoginActivity extends BaseActivity implements IView {
                 .subscribe(new ErrorHandleSubscriber<BaseResp<LoginBean>>(rxErrorHandler) {
                     @Override
                     public void onNext(BaseResp<LoginBean> loginBeanBaseResp) {
+                        AppPreferences.getInstance().setLoginPhone(etAccount.getText().toString());
+                        AppPreferences.getInstance().setLoginPhone(etPwd.getText().toString());
                         navMain(loginBeanBaseResp.data.token, "", "");
                     }
                 });
