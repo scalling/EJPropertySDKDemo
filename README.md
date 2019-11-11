@@ -1,5 +1,5 @@
 # EJPropertySDKDemo
-### V1.1.0 版本更新说明
+### V1.1.0 版本更新说名
    - 新增: 投诉表扬模块(ThirdPartyManager.getInstance().navigation(Navigation.COMPLAINT_PRAISE_MAIN));
 ### V1.2.0 版本更新说明
    - 新增: 巡检管理模块(ThirdPartyManager.getInstance().navigation(Navigation.INSPECTION_MAN));
