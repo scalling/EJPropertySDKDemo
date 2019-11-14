@@ -1,7 +1,7 @@
 # EJPropertySDKDemo
-### V1.1.0 版本更新说名
+### V1.1.x 版本更新说名
    - 新增: 投诉表扬模块(ThirdPartyManager.getInstance().navigation(Navigation.COMPLAINT_PRAISE_MAIN));
-### V1.2.0 版本更新说明
+### V1.2.x 版本更新说明
    - 新增: 巡检管理模块(ThirdPartyManager.getInstance().navigation(Navigation.INSPECTION_MAN));
    - 新增: 高德地图接入（所需3D地图、定位SDK）,[SDK相关下载](https://lbs.amap.com/api/android-sdk/download)
    - 新增: uses-permission权限配置,具体请查看[【AndroidManifest.xml】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/AndroidManifest.xml)
@@ -169,10 +169,16 @@ public class BaseApplication extends Application implements App {
 #### 四、如果使用到了混淆请加入以下内容(如有问题麻烦联系我)
 ```
   -dontwarn com.eju.housekeeper.**
-  -keep public class com.eju.housekeeper.**{*;}
+  -keep public class com.eju.housekeeper.net.bean.**{*;}
+  -keep public class com.eju.housekeeper.app.widget.**{*;}
+  -keep public class com.eju.housekeeper.inspection.**{*;}
+  -keep public class com.eju.housekeeper.workorder.**{*;}
   
-  
-  
+  ################arouter#################
+  -keep public class com.alibaba.android.arouter.routes.**{*;}
+  -keep public class com.alibaba.android.arouter.facade.**{*;}
+  -keep class * implements com.alibaba.android.arouter.facade.template.ISyringe{*;}
+  ################arouter#################
   ################高德地图#################
   #3D 地图 V5.0.0之前：
   -keep   class com.amap.api.maps.**{*;}

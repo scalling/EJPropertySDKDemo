@@ -13,8 +13,6 @@ import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
-import butterknife.OnClick;
-
 
 public class LoginTimeOutActivity extends BaseActivity {
 
@@ -36,16 +34,16 @@ public class LoginTimeOutActivity extends BaseActivity {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        findViewById(R.id.btn_confirm).setOnClickListener(v -> onClick());
+        findViewById(R.id.btn_cancel).setOnClickListener(v -> onClickCancel());
     }
 
-    @OnClick(R.id.btn_confirm)
+
     void onClick() {
         ArmsUtils.killAll();
         startActivity(new Intent(this, LoginActivity.class));
     }
 
-    @OnClick(R.id.btn_cancel)
     void onClickCancel() {
         ArmsUtils.exitApp();
     }

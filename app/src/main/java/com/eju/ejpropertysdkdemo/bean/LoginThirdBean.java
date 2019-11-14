@@ -1,4 +1,4 @@
-package com.eju.ejpropertysdkdemo;
+package com.eju.ejpropertysdkdemo.bean;
 
 public class LoginThirdBean {
 

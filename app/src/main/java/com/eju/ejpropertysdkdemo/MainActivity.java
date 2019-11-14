@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -21,9 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import butterknife.BindView;
-import butterknife.OnItemClick;
-
 
 /**
  * @author : zengmei
@@ -31,8 +26,8 @@ import butterknife.OnItemClick;
  * @description :测试activity
  */
 public class MainActivity extends BaseActivity {
-    @BindView(R.id.list)
     ListView list;
+
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
     }
@@ -63,25 +58,26 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initAdapter() {
+        list = findViewById(R.id.list);
         List<Map<String, Object>> datas = new ArrayList<>();
         datas.add(getItem("跳转工单管理", Navigation.WORK_ORDER_MAN));
         datas.add(getItem("跳转投诉表扬", Navigation.COMPLAINT_PRAISE_MAIN));
         datas.add(getItem("跳转巡检管理", Navigation.INSPECTION_MAN));
         datas.add(getItem("返回登录", 0));
         list.setAdapter(new SimpleAdapter(this, datas, R.layout.item, new String[]{"title"}, new int[]{R.id.btn_next}));
+        list.setOnItemClickListener((parent, view, position, id) -> {
+            Map<String, Object> infoMap = (Map<String, Object>) parent.getItemAtPosition(position);
+            int nav = Integer.parseInt(Objects.requireNonNull(infoMap.get("nav")).toString());
+            if (nav > 0) {
+                ThirdPartyManager.getInstance().navigation(nav);//跳转
+            } else {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
-    @OnItemClick(R.id.list)
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Map<String, Object> infoMap = (Map<String, Object>) parent.getItemAtPosition(position);
-        int nav = Integer.parseInt(Objects.requireNonNull(infoMap.get("nav")).toString());
-        if (nav >0) {
-            ThirdPartyManager.getInstance().navigation(nav);//跳转
-        } else {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+
     private Map<String, Object> getItem(String title, int nav) {
         Map<String, Object> map = new HashMap<>();
         map.put("title", title);

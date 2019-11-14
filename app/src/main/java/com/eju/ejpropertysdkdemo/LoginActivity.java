@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.View;
 
+import com.eju.ejpropertysdkdemo.bean.LoginBody;
+import com.eju.ejpropertysdkdemo.bean.LoginThirdBean;
 import com.eju.housekeeper.app.ResponseErrorListenerImpl;
 import com.eju.housekeeper.app.utils.RxUtils;
 import com.eju.housekeeper.app.utils.ViewUtils;
@@ -20,9 +23,6 @@ import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.IView;
 import com.jess.arms.utils.ArmsUtils;
 import com.zm.rb.view.RoundButton;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,13 +45,9 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  */
 public class LoginActivity extends BaseActivity implements IView {
     private LoadingDialog loadingDialog;
-    @BindView(R.id.et_pwd)
     CleanEditText etPwd;
-    @BindView(R.id.et_account)
     CleanEditText etAccount;
-    @BindView(R.id.btn_login)
     RoundButton btnLogin;
-    @BindView(R.id.btn_test)
     RoundButton btnTest;
     private RxErrorHandler rxErrorHandler;
 
@@ -69,6 +65,7 @@ public class LoginActivity extends BaseActivity implements IView {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        init();
         loadingDialog = new LoadingDialog(this);
         ViewUtils.setSolidColor(this, true, btnLogin, btnTest);
         rxErrorHandler = RxErrorHandler.builder()
@@ -80,10 +77,55 @@ public class LoginActivity extends BaseActivity implements IView {
 //        etAccount.setText("13693198391");
 //        etPwd.setText("11111111");
         //第三方测试账号
-        //etAccount.setText("18814188118");
-        //etPwd.setText("Test1234");
+//        etAccount.setText("18814188118");
+//        etPwd.setText("Test1234");
     }
 
+    private void init(){
+        etPwd=findViewById(R.id.et_pwd);
+        etAccount=findViewById(R.id.et_account);
+        btnLogin=findViewById(R.id.btn_login);
+        btnTest=findViewById(R.id.btn_test);
+        btnLogin.setOnClickListener(v -> onLoginClick());
+        btnTest.setOnClickListener(v -> onTestLoginClick());
+    }
+    private void onLoginClick(){
+        LoginBody loginBean = new LoginBody();
+        loginBean.account = etAccount.getText().toString();
+        loginBean.password = etPwd.getText().toString();
+
+        Observable.just(repositoryManager.obtainRetrofitService(ApiService.class).loginThrid(loginBean))
+                .flatMap((Function<Observable<LoginThirdBean>, ObservableSource<LoginThirdBean>>) loginThirdBeanObservable -> loginThirdBeanObservable)
+                .compose(RxUtils.applySchedulers(this))
+                .subscribe(new ErrorHandleSubscriber<LoginThirdBean>(rxErrorHandler) {
+                    @Override
+                    public void onNext(LoginThirdBean bean) {
+                        if (bean == null || TextUtils.isEmpty(bean.access_token)) {
+                            ArmsUtils.snackbarText("登录失败");
+                            return;
+                        }
+                        AppPreferences.getInstance().setLoginPhone(etAccount.getText().toString());
+                        AppPreferences.getInstance().setLoginPassword(etPwd.getText().toString());
+                        navMain("", bean.access_token, bean.member_id);
+                    }
+                });
+    }
+
+    private void onTestLoginClick(){
+        LoginBody loginBean = new LoginBody();
+        loginBean.loginPhone = etAccount.getText().toString();
+        loginBean.password = etPwd.getText().toString();
+        RxUtils.loadData(repositoryManager.obtainRetrofitService(ApiService.class).login(loginBean))
+                .compose(RxUtils.applySchedulers(this))
+                .subscribe(new ErrorHandleSubscriber<BaseResp<LoginBean>>(rxErrorHandler) {
+                    @Override
+                    public void onNext(BaseResp<LoginBean> loginBeanBaseResp) {
+                        AppPreferences.getInstance().setLoginPhone(etAccount.getText().toString());
+                        AppPreferences.getInstance().setLoginPassword(etPwd.getText().toString());
+                        navMain(loginBeanBaseResp.data.token, "", "");
+                    }
+                });
+    }
     @Override
     public void showLoading() {
         loadingDialog.show();
@@ -111,44 +153,6 @@ public class LoginActivity extends BaseActivity implements IView {
         finish();
     }
 
-    @OnClick(R.id.btn_login)
-    public void onClick() {
-        Map<String, String> loginBody = new HashMap<>();
-        loginBody.put("account", etAccount.getText().toString());
-        loginBody.put("password", etPwd.getText().toString());
-        Observable.just(repositoryManager.obtainRetrofitService(ApiService.class).loginThrid(loginBody))
-                .flatMap((Function<Observable<LoginThirdBean>, ObservableSource<LoginThirdBean>>) loginThirdBeanObservable -> loginThirdBeanObservable)
-                .compose(RxUtils.applySchedulers(this))
-                .subscribe(new ErrorHandleSubscriber<LoginThirdBean>(rxErrorHandler) {
-                    @Override
-                    public void onNext(LoginThirdBean bean) {
-                        if (bean == null || TextUtils.isEmpty(bean.access_token)) {
-                            ArmsUtils.snackbarText("登录失败");
-                            return;
-                        }
-                        AppPreferences.getInstance().setLoginPhone(etAccount.getText().toString());
-                        AppPreferences.getInstance().setLoginPassword(etPwd.getText().toString());
-                        navMain("", bean.access_token, bean.member_id);
-                    }
-                });
-    }
-
-    @OnClick(R.id.btn_test)
-    public void onClickTest() {
-        Map<String, String> loginBody = new HashMap<>();
-        loginBody.put("loginPhone", etAccount.getText().toString());
-        loginBody.put("password", etPwd.getText().toString());
-        RxUtils.loadData(repositoryManager.obtainRetrofitService(ApiService.class).login(loginBody))
-                .compose(RxUtils.applySchedulers(this))
-                .subscribe(new ErrorHandleSubscriber<BaseResp<LoginBean>>(rxErrorHandler) {
-                    @Override
-                    public void onNext(BaseResp<LoginBean> loginBeanBaseResp) {
-                        AppPreferences.getInstance().setLoginPhone(etAccount.getText().toString());
-                        AppPreferences.getInstance().setLoginPassword(etPwd.getText().toString());
-                        navMain(loginBeanBaseResp.data.token, "", "");
-                    }
-                });
-    }
 
     private void navMain(String testToken, String access_token, String member_id) {
         ArmsUtils.snackbarText("登录成功");
@@ -167,10 +171,10 @@ public class LoginActivity extends BaseActivity implements IView {
     //登录
     interface ApiService {
         @POST("/user/manage/login")
-        Observable<BaseResp<LoginBean>> login(@Body Map<String, String> body);
+        Observable<BaseResp<LoginBean>> login(@Body LoginBody body);
 
         @Headers({"Domain-Name: test"})
         @POST("/v2/corp_auth")
-        Observable<LoginThirdBean> loginThrid(@Body Map<String, String> body);
+        Observable<LoginThirdBean> loginThrid(@Body LoginBody body);
     }
 }
