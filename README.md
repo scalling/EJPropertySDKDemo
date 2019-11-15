@@ -169,6 +169,7 @@ public class BaseApplication extends Application implements App {
 #### 四、如果使用到了混淆请加入以下内容(如有问题麻烦联系我)
 ```
   -dontwarn com.eju.housekeeper.**
+  -keep public class * implements com.jess.arms.integration.ConfigModule
   -keep public class com.eju.housekeeper.net.bean.**{*;}
   -keep public class com.eju.housekeeper.app.widget.**{*;}
   -keep public class com.eju.housekeeper.inspection.**{*;}
