@@ -11,7 +11,7 @@
 #### 一、 添加Jcenter仓库 Gradle依赖
 ```
 dependencies {
-   implementation 'com.eju:housekeeper-sdk:1.2.0'
+   implementation 'com.eju:housekeeper-sdk:1.2.1'
 }
 ```
 #### 二、在项目中添加如下代码
