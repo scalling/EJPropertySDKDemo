@@ -78,7 +78,7 @@ public class LoginActivity extends BaseActivity implements IView {
 //        etPwd.setText("11111111");
         //第三方测试账号
 //        etAccount.setText("18814188118");
-//        etPwd.setText("Test1234");
+////        etPwd.setText("Test1234");
     }
 
     private void init(){

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
+import com.eju.housekeeper.app.utils.AppUtils;
 import com.eju.housekeeper.sdk.SdkAppDelegate;
 import com.eju.housekeeper.sdk.ThirdPartyManager;
 import com.jess.arms.base.App;
@@ -33,6 +34,7 @@ public class BaseApplication extends Application implements App {
     @Override
     public void onCreate() {
         super.onCreate();
+
         //ThirdPartyManager.openLog();//打开日志 正式环境下可以不打开
         if (mAppDelegate != null)
             this.mAppDelegate.onCreate();
@@ -47,6 +49,7 @@ public class BaseApplication extends Application implements App {
         //进行初始化
         ThirdPartyManager.init(this, "10000000")
                 .setThemeColor("#009d8d")//主题颜色
+                .setAmapSid(AppUtils.HTTP_DEBUG ? 82877 : 84878)
                 .setTimeOutInterface(() -> {
                     Timber.e("APP登录过期相关操作");
                     timeOut();
