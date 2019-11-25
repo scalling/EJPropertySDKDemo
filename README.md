@@ -7,9 +7,9 @@
    - 修改: 初始化新增setAmapSid(sid)方法,sid如何生成请查看高德地图文档[创建服务](https://lbs.amap.com/api/track/lieying-kaifa/api/service)
 #### **EJPropertySDKDemo 库使用示例**：（SDK接入(**minSdkVersion    : 21**)）
 
-#### 1、 添加本地仓库 Gradle依赖
-### 1.1、复制[SDKProperty](https://github.com/scalling/EJPropertySDKDemo/blob/master/SDKProperty)到项目工程跟目录
-### 1.2、根目录build.gradle加入以下代码
+### 1、 添加本地仓库 Gradle依赖
+#### 1.1、复制[SDKProperty](https://github.com/scalling/EJPropertySDKDemo/blob/master/SDKProperty)到项目工程跟目录
+#### 1.2、根目录build.gradle加入以下代码
 ```
     allprojects {
         repositories {
@@ -20,15 +20,15 @@
         }
     }
 ```
-### 1.3、引用项目
+#### 1.3、引用项目
 ```
 dependencies {
    implementation 'com.eju.housekeeper:sdk:1.2.0'
 }
 ```
-#### 2、在项目中添加如下代码
+### 2、在项目中添加如下代码
 
-##### 2.1、需继承extends Application implements App[【示例BaseApplication.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/BaseApplication.java)在里面进行初始化工作(直接复制就可),[AndroidManifest.xml](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/MainActivity.java) application name需要继承自定义的[BaseApplication](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/BaseApplication.java)
+#### 2.1、需继承extends Application implements App[【示例BaseApplication.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/BaseApplication.java)在里面进行初始化工作(直接复制就可),[AndroidManifest.xml](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/MainActivity.java) application name需要继承自定义的[BaseApplication](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/BaseApplication.java)
 ```
 public class BaseApplication extends Application implements App {
     private SdkAppDelegate mAppDelegate;
@@ -79,12 +79,12 @@ public class BaseApplication extends Application implements App {
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"/>
 ```
-##### 2.2、打开日志
+#### 2.2、打开日志
 ```
      //方便调试数据  正式环境下可以不打开如需使用必须在SdkAppDelegate onCreate之前调用
      ThirdPartyManager.openLog(); 
 ```
-##### 2.3、初始化工具(建议在【Application】进行初始化)
+#### 2.3、初始化工具(建议在【Application】进行初始化)
 ```
     //初始化和设置颜色值越早越好
     ThirdPartyManager.init(this, "10000000")
@@ -95,7 +95,7 @@ public class BaseApplication extends Application implements App {
                                            timeOut();
                                        });
 ```
-##### 2.4、设置登录信息
+#### 2.4、设置登录信息
 ```
         //设置第三方memberId 
         ThirdPartyManager.getInstance().setMemberId();
@@ -108,7 +108,7 @@ public class BaseApplication extends Application implements App {
     //如需要测试则调用:
       ThirdPartyManager.getInstance().test("eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxN3NoaWh1aS5jb20iLCJzdWIiOiJBVVRIRU5USUNBVElPTl9KV1QiLCJpc3MiOiJBVVRIX1NFUlZFUiIsImlhdCI6MTU3MTY0Mzg4NiwiZXhwIjoxNTc0MzIyMjg2LCJqdGkiOiJiZWYzYjZjYS1iNGFiLTRlOGMtYWJjNC05OWZkOTAwYjFhYjAiLCJ1aWQiOjQ1MDV9.mPFonW5GQy54THbViOVSF1oMwlSlLuDO-hAg9w2P8Sw");
 ```
-##### 2.5、跳转
+#### 2.5、跳转
 ```
     //跳转工单管理
     ThirdPartyManager.getInstance().navigation();
@@ -120,10 +120,10 @@ public class BaseApplication extends Application implements App {
     //跳转巡检管理
     ThirdPartyManager.getInstance().navigation(Navigation.INSPECTION_MAN)
 ```
-##### 2.6、[**高德地图相关**](https://lbs.amap.com/)接入【可引用本工程lib及so文件或去官方下载,[官方SDK相关下载(需要3D地图、定位，猎鹰)](https://lbs.amap.com/api/android-sdk/download)】
-###### 2.6.1.添加**lib包**引入本地[**【AMap3DMap_7.1.0_AMapLocation_4.7.2_20191030.jar】**](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/libs)
-###### 2.6.2.**build.gradle**引入本地[**【so文件】**](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/jniLibs)(**一定要引入so文件，否则地图黑屏**),在[AndroidManifest.xml](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/AndroidManifest.xml)配置【apikey】
-###### 2.6.3.需要用到高德地图猎鹰生成sid，sid如何生成请查看高德地图文档[创建服务](https://lbs.amap.com/api/track/lieying-kaifa/api/service)
+#### 2.6、[**高德地图相关**](https://lbs.amap.com/)接入【可引用本工程lib及so文件或去官方下载,[官方SDK相关下载(需要3D地图、定位，猎鹰)](https://lbs.amap.com/api/android-sdk/download)】
+##### 2.6.1.添加**lib包**引入本地[**【AMap3DMap_7.1.0_AMapLocation_4.7.2_20191030.jar】**](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/libs)
+##### 2.6.2.**build.gradle**引入本地[**【so文件】**](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/jniLibs)(**一定要引入so文件，否则地图黑屏**),在[AndroidManifest.xml](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/AndroidManifest.xml)配置【apikey】
+##### 2.6.3.需要用到高德地图猎鹰生成sid，sid如何生成请查看高德地图文档[创建服务](https://lbs.amap.com/api/track/lieying-kaifa/api/service)
 ```
  implementation files('libs/AMap3DMap_7.1.0_AMapTrack_1.1.0_AMapLocation_4.7.2_20191030.jar')
 ```
@@ -141,9 +141,9 @@ public class BaseApplication extends Application implements App {
 示例[【MainActivity.java】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/java/com/eju/ejpropertysdkdemo/MainActivity.java)
 
 
-#### 3、[【AndroidManifest.xml相关配置】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/AndroidManifest.xml)
+### 3、[【AndroidManifest.xml相关配置】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/AndroidManifest.xml)
 
-##### 3.1、相关权限
+#### 3.1、相关权限
 ```
    <uses-permission android:name="android.permission.CALL_PHONE" />
        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 地图包、搜索包需要的基础权限 -->
@@ -162,7 +162,7 @@ public class BaseApplication extends Application implements App {
        <uses-permission android:name="android.permission.BLUETOOTH"/>
        <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 ```
-##### 3.2、需提供文件权限[【file_paths.xml】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/res/xml/file_paths.xml)的配置
+#### 3.2、需提供文件权限[【file_paths.xml】](https://github.com/scalling/EJPropertySDKDemo/blob/master/app/src/main/res/xml/file_paths.xml)的配置
 ```
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -182,7 +182,7 @@ public class BaseApplication extends Application implements App {
             path="Pictures"/>
     </paths>
 ```
-#### 4、如果使用到了混淆请加入以下内容(如有问题麻烦联系我)
+### 4、如果使用到了混淆请加入以下内容(如有问题麻烦联系我)
 ```
   -dontwarn com.eju.housekeeper.**
   -keep public class * implements com.jess.arms.integration.ConfigModule
