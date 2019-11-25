@@ -8,10 +8,23 @@
    
 #### **EJPropertySDKDemo 库使用示例**：（SDK接入(**minSdkVersion    : 21**)）
 
-#### 一、 添加Jcenter仓库 Gradle依赖
+#### 一、 添加本地仓库 Gradle依赖
+### 1、复制[SDKProperty](https://github.com/scalling/EJPropertySDKDemo/blob/master/SDKProperty)到项目工程跟目录
+### 2、根目录build.gradle加入以下代码
+```
+    allprojects {
+        repositories {
+            google()
+            jcenter()
+            maven { url "https://jitpack.io" }
+            maven { url uri("${rootProject.projectDir}/SDKProperty")}
+        }
+    }
+```
+### 3、引用项目
 ```
 dependencies {
-   implementation 'com.eju:housekeeper-sdk:1.2.1'
+   implementation 'com.eju.housekeeper:sdk:1.2.0'
 }
 ```
 #### 二、在项目中添加如下代码
@@ -170,10 +183,12 @@ public class BaseApplication extends Application implements App {
 ```
   -dontwarn com.eju.housekeeper.**
   -keep public class * implements com.jess.arms.integration.ConfigModule
-  -keep public class com.eju.housekeeper.net.bean.**{*;}
-  -keep public class com.eju.housekeeper.app.widget.**{*;}
-  -keep public class com.eju.housekeeper.inspection.**{*;}
-  -keep public class com.eju.housekeeper.workorder.**{*;}
+  -keep public class com.eju.housekeeper.app.**{*;}
+  -keep public class com.eju.housekeeper.commonsdk.**{*;}
+  -keep public class com.eju.housekeeper.housekeeper.**{*;}
+  -keep public class com.eju.housekeeper.net.**{*;}
+  -keep public class com.eju.housekeeper.inspection{*;}
+  -keep public class com.eju.housekeeper.workorder{*;}
   
   ################arouter#################
   -keep public class com.alibaba.android.arouter.routes.**{*;}
